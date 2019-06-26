@@ -3,7 +3,7 @@ package storage
 import (
 	"context"
 
-	"github.com/vidmed/status/dto"
+	"github.com/vidmed/status/pkg/service/dto"
 )
 
 type Storage interface {

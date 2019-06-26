@@ -4,9 +4,9 @@ import (
 	"context"
 	"strconv"
 
-	"github.com/vidmed/status/dto"
+	"github.com/vidmed/status/pkg/service/dto"
 
-	"github.com/vidmed/status/storage"
+	"github.com/vidmed/status/pkg/service/storage"
 )
 
 //var _ = storage.Storage(dummyStorage{})

@@ -3,11 +3,11 @@ package endpoint
 import (
 	"context"
 
-	"github.com/vidmed/status/dto"
+	endpointDTO "github.com/vidmed/status/pkg/endpoint/dto"
+	"github.com/vidmed/status/pkg/service"
 
 	"github.com/go-kit/kit/endpoint"
 	"github.com/go-kit/kit/log"
-	"github.com/vidmed/status/service"
 )
 
 // Endpoints collects all of the endpoints that compose a status service. It's
@@ -41,23 +41,44 @@ func New(s service.Service, mdw map[string][]endpoint.Middleware) Endpoints {
 // MakeGetStatusEndpoint constructs a GetStatus endpoint wrapping the service.
 func MakeGetStatusEndpoint(s service.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
-		req := request.(*dto.OrderStatusRequest)
-		return s.GetStatus(ctx, req)
+		req := request.(*endpointDTO.OrderStatusRequest)
+		serviceRequest := convertOrderStatusRequest(req)
+
+		resp, err := s.GetStatus(ctx, serviceRequest)
+		if err != nil {
+			return nil, err
+		}
+
+		return convertOrderStatusResponse(resp), nil
 	}
 }
 
 // MakeGetStatusesEndpoint constructs a GetStatuses endpoint wrapping the service.
 func MakeGetStatusesEndpoint(s service.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
-		req := request.(*dto.OrderStatusesRequest)
-		return s.GetStatuses(ctx, req)
+		req := request.(*endpointDTO.OrderStatusesRequest)
+		serviceRequest := convertOrderStatusesRequest(req)
+
+		resp, err := s.GetStatuses(ctx, serviceRequest)
+		if err != nil {
+			return nil, err
+		}
+
+		return convertOrderStatusesResponse(resp), nil
 	}
 }
 
 // MakeGetStatusHistoryEndpoint constructs a GetStatusHistory endpoint wrapping the service.
 func MakeGetStatusHistoryEndpoint(s service.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
-		req := request.(*dto.StatusHistoryRequest)
-		return s.GetStatusHistory(ctx, req)
+		req := request.(*endpointDTO.StatusHistoryRequest)
+		serviceRequest := convertStatusHistoryRequest(req)
+
+		resp, err := s.GetStatusHistory(ctx, serviceRequest)
+		if err != nil {
+			return nil, err
+		}
+
+		return convertStatusHistoryResponse(resp), nil
 	}
 }

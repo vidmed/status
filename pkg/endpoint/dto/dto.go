@@ -19,17 +19,17 @@ type StatusHistoryRequest struct {
 
 // ------------------ responses
 
-type OrderStatus struct {
+type OrderStatusResponse struct {
 	OrderInfo *OrderInfo `json:"orderInfo"`
 	Status    *Status    `json:"status"`
 }
 
-type OrderStatuses struct {
-	SucceedOrders []*OrderStatus `json:"succeedOrders"`
-	FailedOrders  []*FailedOrder `json:"failedOrders"`
+type OrderStatusesResponse struct {
+	SucceedOrders []*OrderStatusResponse `json:"succeedOrders"`
+	FailedOrders  []*FailedOrder         `json:"failedOrders"`
 }
 
-type StatusHistory struct {
+type StatusHistoryResponse struct {
 	OrderInfo *OrderInfo `json:"orderInfo"`
 	Rows      []*Status  `json:"rows"`
 	Meta      *Meta      `json:"meta"`

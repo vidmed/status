@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	"github.com/vidmed/status/dto"
-	"github.com/vidmed/status/storage"
+	"github.com/vidmed/status/pkg/service/dto"
+	"github.com/vidmed/status/pkg/service/storage"
 )
 
 // Service describes the status service.
