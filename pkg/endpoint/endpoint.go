@@ -21,15 +21,15 @@ type Endpoints struct {
 
 // New returns a Endpoints struct that wraps the provided service, and wires in all of the
 // expected endpoint middlewares
-func New(s service.Service, mdw map[string][]endpoint.Middleware) Endpoints {
+func New(s service.Service, logger log.Logger) Endpoints {
 	getStatusEndpoint := MakeGetStatusEndpoint(s)
-	getStatusEndpoint = LoggingMiddleware(log.With(logger, "method", "Sum"))(getStatusEndpoint)
+	getStatusEndpoint = LoggingMiddleware(log.With(logger, "method", "GetStatus"))(getStatusEndpoint)
 
 	getStatusesEndpoint := MakeGetStatusesEndpoint(s)
-	getStatusesEndpoint = LoggingMiddleware(log.With(logger, "method", "Sum"))(getStatusesEndpoint)
+	getStatusesEndpoint = LoggingMiddleware(log.With(logger, "method", "GetStatuses"))(getStatusesEndpoint)
 
 	getStatusHistoryEndpoint := MakeGetStatusHistoryEndpoint(s)
-	getStatusHistoryEndpoint = LoggingMiddleware(log.With(logger, "method", "Sum"))(getStatusHistoryEndpoint)
+	getStatusHistoryEndpoint = LoggingMiddleware(log.With(logger, "method", "GetStatusHistory"))(getStatusHistoryEndpoint)
 
 	return Endpoints{
 		GetStatusEndpoint:        getStatusEndpoint,
