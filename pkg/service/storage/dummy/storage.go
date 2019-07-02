@@ -18,6 +18,10 @@ func NewDummyStorage() storage.Storage {
 	return dummyStorage{}
 }
 
+func (ds dummyStorage) Close() {
+
+}
+
 func (ds dummyStorage) GetStatus(ctx context.Context, req *dto.OrderStatusRequest) (*dto.OrderStatus, error) {
 	return &dto.OrderStatus{
 		OrderInfo: ds.orderInfo(req.OrderId),
